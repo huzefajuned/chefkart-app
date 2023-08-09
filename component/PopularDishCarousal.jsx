@@ -39,6 +39,7 @@ const PopularDishCarousal = () => {
         <Loading />
       ) : (
         <View style={styles.container}>
+          <Text style={styles.headingText}>Popular Dishes</Text>
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -63,8 +64,14 @@ const PopularDishCarousal = () => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: responsiveHeight(6),
-    height: responsiveHeight(12),
+    marginTop: responsiveHeight(2),
+    height: responsiveHeight(16),
+  },
+  headingText: {
+    color: blackColor,
+    fontSize: responsiveFontSize(3),
+    fontWeight: "500",
+    marginBottom: responsiveHeight(2),
   },
   carouselContent: {
     flexDirection: "row",

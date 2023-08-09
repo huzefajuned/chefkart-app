@@ -7,13 +7,18 @@ import {
   responsiveFontSize,
 } from "react-native-responsive-dimensions";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const Header = ({ title, goBackIcon, GoNextIcon }) => {
+  const navigation = useNavigation();
   return (
     <View style={styles.main}>
       {goBackIcon && (
-        <TouchableOpacity style={styles.backIconStyle}>
-          <MaterialIcons name="arrow-back-ios" size={responsiveWidth(7)} />
+        <TouchableOpacity
+          style={styles.backIconStyle}
+          onPress={() => navigation.navigate("Landing")}
+        >
+          <MaterialIcons name="arrow-back-ios" size={responsiveWidth(6)} />
         </TouchableOpacity>
       )}
       {title && <Text style={styles.titleStyle}>{title}</Text>}
@@ -32,10 +37,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-start",
     gap: responsiveWidth(10),
+    // backgroundColor: "red",
+    marginBottom: responsiveHeight(2),
   },
   backIconStyle: {
     marginLeft: responsiveWidth(5),
   },
-  titleStyle: { fontSize: responsiveFontSize(3.5) },
+  titleStyle: { fontSize: responsiveFontSize(3.2) },
   nextIconStyle: {},
 });

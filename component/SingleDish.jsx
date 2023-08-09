@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React from "react";
+import { SimpleLineIcons, AntDesign } from "@expo/vector-icons";
 
 import {
   responsiveWidth,
@@ -16,8 +17,13 @@ import {
 import { borderColor, whiteColor } from "../colors";
 import Loader from "../component/Loader";
 
+const refrigerator_Url =
+  "https://www.lg.com/in/images/refrigerators/md07570282/GN-H602HLHM-Refrigerators-Front-View-D-01.jpg";
+const microwave_Url =
+  "https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1691179121/Croma%20Assets/Small%20Appliances/Microwave%20or%20OTG/Images/221297_0_so68z4.png?tr=w-360";
+
 const SingleDish = ({ dishes }) => {
-  console.log("dishes inside singke", dishes[1]);
+  console.log("dishes inside singke", dishes);
 
   return (
     <>
@@ -31,8 +37,70 @@ const SingleDish = ({ dishes }) => {
               <View style={styles.leftContainer}>
                 <View style={styles.nameContainer}>
                   <Text style={styles.nameText}>{name}</Text>
-                  <Text>{rating}</Text>
+                  <Text
+                    style={{
+                      backgroundColor: "#51C452",
+                      height: responsiveHeight(2.5),
+                      width: responsiveWidth(10),
+                      textAlign: "center",
+                      borderRadius: 5,
+                      fontSize: responsiveFontSize(1.8),
+                    }}
+                  >
+                    {rating}
+                    <AntDesign
+                      name="star"
+                      size={responsiveFontSize(1.6)}
+                      color="white"
+                    />
+                  </Text>
                 </View>
+
+                <View style={styles.ingrediantContainer}>
+                  <View style={styles.equipmentContainer}>
+                    {equipments.map((euip_) => {
+                      console.log("euip_", euip_);
+                      return (
+                        <Text
+                          key={euip_}
+                          style={{
+                            width: responsiveWidth(20),
+                            backgroundColor: "red",
+                            textAlign: "center",
+                          }}
+                        >
+                          {euip_ === "Refrigerator" && (
+                            <Image
+                              source={{ uri: refrigerator_Url }}
+                              height={responsiveWidth(5)}
+                              width={responsiveWidth(5)}
+                            />
+                          )}
+                          {euip_ === "Microwave" && (
+                            <Image
+                              source={{ uri: microwave_Url }}
+                              height={responsiveWidth(5)}
+                              width={responsiveWidth(5)}
+                            />
+                          )}
+                        </Text>
+                      );
+                    })}
+                  </View>
+                  <View>
+                    <Text style={styles.ingrediantText}>Ingredients</Text>
+                    <TouchableOpacity>
+                      <Text>
+                        View List
+                        <SimpleLineIcons
+                          name="arrow-right"
+                          size={responsiveFontSize(1.5)}
+                        />
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+
                 <View style={styles.descriptionContainer}>
                   <Text style={styles.descriptionText}>{description}</Text>
                 </View>
@@ -71,10 +139,24 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
 
+  ingrediantContainer: {
+    backgroundColor: "red",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
   nameContainer: {
     flexDirection: "row",
     width: responsiveWidth(50),
     justifyContent: "space-between",
+  },
+  equipmentContainer: {
+    backgroundColor: "blue",
+    borderRadius: 20,
+    width: responsiveWidth(30),
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignContent: "flex-start",
   },
   nameText: { fontSize: responsiveFontSize(2.4), fontWeight: "600" },
   descriptionContainer: { width: responsiveWidth(50) },
