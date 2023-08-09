@@ -7,6 +7,7 @@ import PopularDishCarousal from "../component/PopularDishCarousal";
 import FoodTypeCarousal from "../component/FoodTypeCarousal";
 import Dishes from "../component/Dishes";
 import { SafeAreaView } from "react-native-safe-area-context";
+import CartPopup from "../component/CartPopup";
 
 const Home = () => {
   return (
@@ -21,6 +22,7 @@ const Home = () => {
       <FoodTypeCarousal />
       <PopularDishCarousal />
       <Dishes />
+      <CartPopup />
     </SafeAreaView>
   );
 };

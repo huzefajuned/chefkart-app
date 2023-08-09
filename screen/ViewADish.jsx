@@ -9,12 +9,9 @@ import {
   responsiveHeight,
   responsiveWidth,
 } from "react-native-responsive-dimensions";
-import {
-  microwave_Url,
-  refrigerator_Url,
-  stove_Url,
-} from "../component/SingleDish";
+
 import Loading from "../component/Loader";
+import { microwave_Url, refrigerator_Url, stove_Url } from "../constant";
 
 //API
 const url =
@@ -128,8 +125,18 @@ const styles = StyleSheet.create({
   applianceItem: {
     flexDirection: "column",
     alignItems: "center",
+    marginTop: responsiveHeight(1),
   },
-  commonImage: { width: responsiveWidth(20), height: responsiveWidth(20) },
+  commonImage: {
+    width: responsiveWidth(25),
+    height: responsiveWidth(30),
+    objectFit: "contain",
+    backgroundColor: "#F5F5F5",
+    borderColor: "white",
+    padding: responsiveWidth(10),
+    borderWidth: 1,
+    borderRadius: 5,
+  },
 });
 
 export default ViewADish;

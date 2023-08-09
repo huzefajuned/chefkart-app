@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import {
   responsiveHeight,
@@ -8,7 +8,8 @@ import {
 } from "react-native-responsive-dimensions";
 
 import { Fontisto, Feather } from "@expo/vector-icons";
-import { blackColor, borderColor, shadowkColor, whiteColor } from "../colors";
+import { blackColor, borderColor, shadowColor, whiteColor } from "../colors";
+
 const DateOrTime = () => {
   // Function to format the date as "yyyy-mm-dd"
   const formatDate = (date) => {
@@ -18,16 +19,27 @@ const DateOrTime = () => {
     return `${year}-${month}-${day}`;
   };
 
+  // Function to format the time as "hh:mm AM/PM"
+  const formatTime = (date) => {
+    const hours = String(date.getHours() % 12 || 12).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const ampm = date.getHours() >= 12 ? "PM" : "AM";
+    return `${hours}:${minutes} ${ampm}`;
+  };
+
   const [date, setDate] = useState(new Date());
-  const [mode, setMode] = useState("time");
+  const [mode, setMode] = useState("date"); // Start with date mode
   const [show, setShow] = useState(false);
-  const [showDob, setShowDob] = useState(false);
 
   const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate;
+    const currentDate = selectedDate || date;
     setShow(false);
     setDate(currentDate);
-    onValueChange(formatDate(currentDate));
+    if (mode === "date") {
+      // If in date mode, switch to time mode
+      setMode("time");
+      setShow(true); // Open the time picker
+    }
   };
 
   const showMode = (currentMode) => {
@@ -37,41 +49,32 @@ const DateOrTime = () => {
 
   const showDatepicker = () => {
     showMode("date");
-    setShowDob(true);
+  };
+
+  const showTimepicker = () => {
+    showMode("time");
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
         <TouchableOpacity style={styles.rowContainer} onPress={showDatepicker}>
-          <Text>
-            <Fontisto name="date" size={responsiveFontSize(4)} />
-            {formatDate(date)}
-          </Text>
-          {/* {showDob && (
-            <Text style={{ fontSize: responsiveFontSize(2) }}>
-              {formatDate(date)}
-            </Text>
-          )} */}
+          <Fontisto name="date" size={responsiveFontSize(4)} />
+          <Text>{formatDate(date)}</Text>
         </TouchableOpacity>
 
-        <View style={styles.rowContainer}>
-          <Text>
-            <Feather name="clock" size={responsiveFontSize(4)} /> curretTime
-          </Text>
-          {/* {showDob && (
-            <Text style={{ fontSize: responsiveFontSize(2) }}>
-              {formatDate(date)}
-            </Text>
-          )} */}
-        </View>
+        <TouchableOpacity style={styles.rowContainer} onPress={showTimepicker}>
+          <Feather name="clock" size={responsiveFontSize(4)} />
+          <Text>{formatTime(date)}</Text>
+        </TouchableOpacity>
       </View>
       {show && (
         <DateTimePicker
           testID="dateTimePicker"
           value={date}
           mode={mode}
-          is24Hour={true}
+          is24Hour={false} // Use 12-hour time format
+          display="default" // Use the default platform UI
           onChange={onChange}
         />
       )}
@@ -100,15 +103,18 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     borderColor: borderColor,
     borderWidth: 1,
-    shadowColor: shadowkColor,
+    shadowColor: shadowColor,
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.4,
     elevation: 3,
   },
   rowContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "center",
+    gap: responsiveWidth(0.5),
     alignItems: "center",
-    width: responsiveWidth(30),
+    width: responsiveWidth(35),
+    alignItems: "center",
+    textAlign: "center",
   },
 });

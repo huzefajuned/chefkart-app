@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { AntDesign, SimpleLineIcons } from "@expo/vector-icons";
 
@@ -10,16 +10,11 @@ import {
 import { borderColor, whiteColor } from "../colors";
 import Loader from "../component/Loader";
 import { useNavigation } from "@react-navigation/native";
+import { microwave_Url, refrigerator_Url } from "../constant";
+import { CartContext } from "../context";
 
-export const refrigerator_Url =
-  "https://www.pngmart.com/files/7/Refrigerator-Transparent-PNG.png";
-
-export const microwave_Url =
-  "https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1691179121/Croma%20Assets/Small%20Appliances/Microwave%20or%20OTG/Images/221297_0_so68z4.png?tr=w-360";
-
-export const stove_Url =
-  "https://www.myuniqueshop.in/cdn/shop/products/image-removebg-preview2_16e5fbd1-71e2-4acd-afab-01f9eb35d6a0_590x.png?v=1670571756";
 const SingleDish = ({ dishes }) => {
+  const { addToCart } = useContext(CartContext);
   const navigation = useNavigation();
 
   if (dishes.length <= 0) {
@@ -99,7 +94,10 @@ const SingleDish = ({ dishes }) => {
 
             <View style={styles.rightContainer}>
               <Image source={{ uri: image }} style={styles.imageStyle} />
-              <TouchableOpacity style={styles.btn}>
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={() => addToCart(dish)}
+              >
                 <Text style={styles.btnText}>ADD</Text>
               </TouchableOpacity>
             </View>

@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   //
   noPeople: {
     flexDirection: "column",
-    paddingLeft: responsiveWidth(10),
+    // paddingLeft: responsiveWidth(10),
     paddingBottom: responsiveHeight(1),
     borderBottomColor: "#A3A3A3",
     borderBottomWidth: 1,
