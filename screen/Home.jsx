@@ -11,7 +11,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 const Home = () => {
   return (
     <SafeAreaView style={styles.main}>
-      <Header goBackIcon={true} title="Select Dishes" GoNextIcon={false} />
+      <Header
+        goBackIcon={true}
+        backPath="Landing"
+        title="Select Dishes"
+        GoNextIcon={false}
+      />
       <DateOrTime />
       <FoodTypeCarousal />
       <PopularDishCarousal />

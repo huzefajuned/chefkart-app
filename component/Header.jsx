@@ -9,14 +9,14 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-const Header = ({ title, goBackIcon, GoNextIcon }) => {
+const Header = ({ title, backPath, goBackIcon, GoNextIcon }) => {
   const navigation = useNavigation();
   return (
     <View style={styles.main}>
       {goBackIcon && (
         <TouchableOpacity
           style={styles.backIconStyle}
-          onPress={() => navigation.navigate("Landing")}
+          onPress={() => navigation.navigate(`${backPath}`)}
         >
           <MaterialIcons name="arrow-back-ios" size={responsiveWidth(6)} />
         </TouchableOpacity>

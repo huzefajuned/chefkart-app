@@ -30,8 +30,9 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
+    marginBottom: responsiveHeight(1),
   },
-  textStyle: { fontSize: responsiveFontSize(2.3) },
+  textStyle: { fontSize: responsiveFontSize(2.5), fontWeight: "700" },
   btns: {
     backgroundColor: blackColor,
     width: responsiveWidth(20),
